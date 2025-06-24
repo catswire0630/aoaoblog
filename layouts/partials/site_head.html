@@ -1,0 +1,20 @@
+{{/* Wowchemy Head */}}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+{{- if .IsHome -}}
+  <title>{{ site.Title }}</title>
+{{- else -}}
+  <title>{{ .Title }} | {{ site.Title }}</title>
+{{- end -}}
+
+{{/* HUGO GENERATOR METATAG -- DO NOT REMOVE */}}
+{{ hugo.Generator }}
+
+{{/* Load Wowchemy's standard metadata and CSS to keep the site working */}}
+{{- partial "partials/metadata.html" . -}}
+{{- partial "partials/css.html" . -}}
+
+{{/* ------ OUR CRITICAL SCRIPT ------ */}}
+{{/* This will load the Netlify Identity Widget on every page */}}
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
