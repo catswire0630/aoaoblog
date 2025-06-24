@@ -1,13 +1,15 @@
-# Navigation Links
-#   The weight parameter defines the order that the links will appear in.
+# config/_default/menus.yaml
 
 main:
-  - name: Home
+  - name: 首页
     url: /
     weight: 10
-  - name: Topics
-    url: tags/
+  - name: 博客
+    url: /blog/
     weight: 20
-  - name: Uses
-    url: uses/
+  - name: 标签
+    url: /tags/
     weight: 30
+  - name: 关于我
+    url: /about/
+    weight: 40
