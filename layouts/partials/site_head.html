@@ -1,18 +1,7 @@
-{{/* Wowchemy Head - CORRECTED VERSION */}}
+{{/* MINIMAL HEAD FOR DEBUGGING - IT WILL LOOK UGLY, THIS IS INTENTIONAL */}}
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-{{- if .IsHome -}}
-  <title>{{ site.Title }}</title>
-{{- else -}}
-  <title>{{ .Title }} | {{ site.Title }}</title>
-{{- end -}}
+<title>{{ .Title }} | {{ site.Title }}</title>
 
-{{ hugo.Generator }}
-
-{{/* CORRECTED: Removed the 'partials/' prefix from the partial calls */}}
-{{- partial "metadata.html" . -}}
-{{- partial "css.html" . -}}
-
-{{/* ------ OUR CRITICAL SCRIPT ------ */}}
+{{/* ------ THIS IS THE ONLY THING THAT MATTERS RIGHT NOW ------ */}}
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
