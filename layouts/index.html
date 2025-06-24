@@ -1,49 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ site.Title }}</title>
-    <style>
-        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-        h1, h2 { color: #333; }
-        a { color: #007bff; }
-        ul { list-style-type: none; padding: 0; }
-        li { margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
-        p { color: #555; }
-    </style>
-</head>
-<body>
+{{/* 自定义主页布局
+  这个文件会覆盖主题的默认主页
+  它的作用是：列出 content/blog 文件夹里最新的5篇文章
+*/}}
 
-    <header>
-        <h1>{{ site.Title }} - 文章列表</h1>
-    </header>
+{{/* 使用主题的基础框架来保持样式一致 */}}
+{{- define "main" -}}
 
-    <main>
-        {{/* 查找 content/blog 目录下的所有常规页面 */}}
-        {{ $pages := where .Site.RegularPages "Section" "blog" }}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        <div class="page-header">
+          <h1>{{ .Title }}</h1>
+        </div>
 
-        {{/* 检查是否找到了任何页面 */}}
-        {{ if not $pages }}
-            <h2>在 'blog' 目录中没有找到任何文章。</h2>
-            <p>请确认你的文章存放在 `content/blog/` 文件夹下，并且没有被设置为草稿 (draft) 或未来日期。</p>
-        {{ else }}
-            <ul>
-                {{/* 按日期倒序排列，最新的在前 */}}
-                {{ range $pages.ByDate.Reverse }}
-                    <li>
-                        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-                        <p>
-                            <time>{{ .Date.Format "January 2, 2006" }}</time>
-                        </p>
-                        {{ with .Params.summary }}
-                            <p>{{ . }}</p>
-                        {{ end }}
-                    </li>
-                {{ end }}
-            </ul>
+        {{ $paginator := .Paginate (where .Site.RegularPages "Section" "blog") }}
+        {{ range $paginator.Pages }}
+          <div class="post-preview">
+            <a href="{{ .Permalink }}">
+              <h2 class="post-title">{{ .Title }}</h2>
+              {{ with .Params.summary }}
+                <h3 class="post-subtitle">{{ . }}</h3>
+              {{ end }}
+            </a>
+            <p class="post-meta">
+              Posted on {{ .Date.Format "January 2, 2006" }}
+            </p>
+          </div>
+          <hr>
         {{ end }}
-    </main>
 
-</body>
-</html>
+        {{/* 分页导航 (如果文章多于5篇) */}}
+        {{ partial "pagination.html" . }}
+      </div>
+    </div>
+  </div>
+
+{{- end -}}
